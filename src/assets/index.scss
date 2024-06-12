@@ -1,0 +1,60 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.cards-wrapper {
+    display: grid;
+    justify-items: center;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 2rem;
+
+    max-width: 1440px;
+
+    .card {
+        cursor: pointer;
+        width: 100px;
+    }
+}
+
+.card-back{
+    display: none;
+}
+
+/* .card-container {
+    perspective: 1000px;
+}
+
+.card-container.back .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-inner {
+    position: relative;
+    text-align: center;
+    transform-style: preserve-3d;
+    transition: transform 0.85s;
+    animation: flip-card 0.85s;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    user-select: none;
+}
+ */
