@@ -8,7 +8,6 @@ import Result from "./components/Result";
 export const AppContext = React.createContext();
 
 function App() {
-  // const [deckID, setDeckID] = React.useState();
   const [cards, setCards] = React.useState();
   const [loading, setLoading] = React.useState(false);
   const [flip, setFlip] = React.useState(false);
@@ -18,7 +17,6 @@ function App() {
   const score = React.useRef(0);
 
   const Context = {
-    // setDeckID,
     setCards,
     setLoading,
     selectedCards,
@@ -77,7 +75,6 @@ function App() {
 
   async function startNewGame() {
     setLoading(true);
-    // setDeckID(null);
     setCards(null);
     setHasWon(false);
     setShowResult(false);
@@ -85,7 +82,6 @@ function App() {
     score.current = 0;
     try {
       const deckID = await fetchDeckID();
-      // setDeckID(deckID);
 
       const cards = await drawCards(deckID);
       setCards(cards);
