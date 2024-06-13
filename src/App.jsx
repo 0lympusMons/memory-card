@@ -1,54 +1,61 @@
 import React from "react";
 import { fetchDeckID, drawCards } from "./api";
-import Card from "./Card";
+import Card from "./components/Card";
 import { shuffleArray } from "./utils";
 import Loading from "./LoadingScreen";
+import Result from "./components/Result";
+
+export const AppContext = React.createContext();
 
 function App() {
-  const [deckID, setDeckID] = React.useState();
+  // const [deckID, setDeckID] = React.useState();
   const [cards, setCards] = React.useState();
-  const [selectedCards, setSelectedCards] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  const [score, setScore] = React.useState(0);
-
   const [flip, setFlip] = React.useState(false);
+  const [showResult, setShowResult] = React.useState(false);
+  const [hasWon, setHasWon] = React.useState(true);
+  const selectedCards = React.useRef([]);
+  const score = React.useRef(0);
+
+  const Context = {
+    // setDeckID,
+    setCards,
+    setLoading,
+    selectedCards,
+    score,
+    startNewGame,
+  };
 
   function selectCard(card) {
-    const cardExists = selectedCards.includes(card);
+    const cardExists = selectedCards.current.includes(card);
 
     if (cardExists) {
-      console.log(card);
-      console.log("exists!");
-      startNewGame();
+      // startNewGame();
+      setHasWon(false);
+      setShowResult(true);
     }
 
     if (!cardExists) {
-      setScore((prev) => prev + 1);
-      setSelectedCards((prev) => [...prev, card]);
-      setCards((prev) => shuffleCards(prev));
+      score.current++;
+      const newSelectedCards = [...selectedCards.current, card];
+      selectedCards.current = newSelectedCards;
     }
   }
 
   function handleClick(card) {
-    // if (flip == false) {
-    setFlip((prev) => !prev);
-    selectCard(card);
+    if (flip == false) {
+      setFlip(true);
 
-    setTimeout(() => {
-      setFlip(false);
-    }, 1000);
-    // }
-  }
+      selectCard(card);
 
-  const shuffledCards = React.useMemo(() => {
-    if (cards && cards[0] != null) {
-      return shuffleArray(cards);
+      setTimeout(() => {
+        setCards((prev) => shuffleCards(prev));
+      }, 900);
+
+      setTimeout(() => {
+        setFlip(false);
+      }, 1000);
     }
-    return [];
-  }, [cards]);
-
-  function shuffleCards() {
-    return shuffleArray(cards).slice(0, 5);
   }
 
   const cardsEls =
@@ -64,15 +71,21 @@ function App() {
         />
       ));
 
+  function shuffleCards() {
+    return shuffleArray(cards);
+  }
+
   async function startNewGame() {
     setLoading(true);
-    setDeckID(null);
+    // setDeckID(null);
     setCards(null);
-    setSelectedCards([]);
-    setScore(0);
+    setHasWon(false);
+    setShowResult(false);
+    selectedCards.current = [];
+    score.current = 0;
     try {
       const deckID = await fetchDeckID();
-      setDeckID(deckID);
+      // setDeckID(deckID);
 
       const cards = await drawCards(deckID);
       setCards(cards);
@@ -93,7 +106,14 @@ function App() {
 
   return (
     <>
-      <h1> {score}</h1>
+      {hasWon || showResult ? (
+        <AppContext.Provider value={Context}>
+          <Result hasWon={hasWon} />
+        </AppContext.Provider>
+      ) : (
+        ""
+      )}
+      <h1> {score.current}</h1>
       <div className="cards-wrapper">{cardsEls}</div>
     </>
   );
