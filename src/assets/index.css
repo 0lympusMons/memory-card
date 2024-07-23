@@ -4,55 +4,215 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Card Characters";
 }
 
-.cards-wrapper {
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body.dark {
+  background-color: #000000;
+  transition: 1s;
+}
+body.dark * {
+  color: white;
+  transition: 1s;
+}
+
+#root {
+  margin: auto;
+  max-width: 90rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 16px;
+  margin-bottom: 32px;
+  height: 6.5vh;
+}
+header .game-title {
+  font-size: clamp(12px, 3vw, 24px);
+  letter-spacing: 4px;
+  text-align: center;
+  margin: auto 0;
+}
+header nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+header nav a {
+  font-size: clamp(8px, 3vw, 16px);
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: #000000;
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  height: 100%;
+}
+.menu .buttons-wrapper {
+  list-style: none;
+}
+.menu .buttons-wrapper a {
+  color: black;
+  text-decoration: none;
+}
+.menu .highscores ul {
+  list-style: none;
+}
+
+.game-screen {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+.game-screen .stats-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.game-screen .stats-wrapper .stats {
+  font-size: 12px;
+  font-weight: 100;
+}
+.game-screen .cards-wrapper {
   display: grid;
   justify-items: center;
-  grid-template-rows: repeat(5, 1fr);
   grid-template-columns: repeat(5, 1fr);
-  row-gap: 2rem;
-  max-width: 1440px;
+  gap: 16px;
+  width: 100%;
 }
-.cards-wrapper .card {
+
+.card-container {
+  width: 100%;
+  max-width: 6.25rem;
+  height: 8.75rem;
+}
+.card-container .card {
+  position: relative;
+  height: auto;
+  perspective: 62.5rem;
+  transform-origin: bottom;
   cursor: pointer;
-  width: 100px;
 }
-
-.card-back {
-  display: none;
-}
-
-/* .card-container {
-    perspective: 1000px;
-}
-
-.card-container.back .card-inner {
-    transform: rotateY(180deg);
+.card-container .card img {
+  width: 100%;
 }
 
 .card-inner {
-    position: relative;
-    text-align: center;
-    transform-style: preserve-3d;
-    transition: transform 0.85s;
-    animation: flip-card 0.85s;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
 }
 
-.card-back {
-    transform: rotateY(180deg);
+.card.hideCards .card-inner {
+  transform: rotateY(180deg);
 }
 
 .card-front,
 .card-back {
-    position: absolute;
-    backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
 }
 
-.card-image {
-    width: 100%;
-    height: 200px;
-    object-fit: contain;
-    user-select: none;
+.card-back {
+  transform: rotateY(180deg);
 }
- *//*# sourceMappingURL=index.css.map */
+
+.result {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+}
+.result--text {
+  font-size: clamp(1.5rem, 3vw, 3.875rem);
+  line-height: 4.625rem;
+  letter-spacing: 0.31em;
+  text-align: center;
+}
+.result--buttons-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.result--buttons-wrapper a,
+.result--buttons-wrapper button {
+  background: none;
+  border: none;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  cursor: pointer;
+  position: relative;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+}
+.result--buttons-wrapper a::before,
+.result--buttons-wrapper button::before {
+  content: url("spade.svg");
+  filter: none;
+  display: none;
+  position: absolute;
+  left: -30px;
+}
+.result--buttons-wrapper a:hover::before,
+.result--buttons-wrapper button:hover::before {
+  display: block;
+}
+
+.buttons-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.buttons-wrapper a,
+.buttons-wrapper button {
+  background: none;
+  border: none;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  cursor: pointer;
+  position: relative;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+}
+.buttons-wrapper a::before,
+.buttons-wrapper button::before {
+  content: url("spade.svg");
+  filter: brightness(0) invert(0);
+  display: none;
+  position: absolute;
+  left: -30px;
+}
+.buttons-wrapper a:hover::before,
+.buttons-wrapper button:hover::before {
+  display: block;
+}/*# sourceMappingURL=index.css.map */

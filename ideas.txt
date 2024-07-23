@@ -1,0 +1,8 @@
+# main
+Make it endless to make highscores make sense
+
+
+
+
+# misc
+make cards flip in unison

@@ -22,7 +22,7 @@ export function Card({ card, flip, handleClick, index }) {
           <div
             className="card-front"
             key={`${card.code}-front`}
-            onClick={() => handleClick(card.code)}
+            onClick={() => handleClick(card)}
           >
             {cardImg}
           </div>
