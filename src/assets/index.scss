@@ -170,7 +170,7 @@ header {
 
     a::before,
     button::before {
-        content: url("/spade.svg");
+        content: url("../spade.svg");
         filter: $filter;
         display: none;
         position: absolute;
